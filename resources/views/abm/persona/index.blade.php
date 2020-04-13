@@ -20,7 +20,7 @@
                         <th>Password:</th>
                         <th>Opciones</th>
                     </thead>
-                    @foreach($personas as $per)     
+                    @foreach($personas as $per)
                     <tr>
                     <td>{{$per->name}}</td>
                     <td>{{$per->email}}</td>
@@ -28,7 +28,8 @@
                     <td><a href="{{URL::action('personaController@edit',$per->id)}}">
                         <button class="btn btn-info">Editar</button>
                     </a>
-                    
+                    <button class="btn btn-danger" onclick="eliminar({{$per->id}})"> Eliminar</button>
+
                     </td>
                     @endforeach
                 </table>
@@ -37,10 +38,10 @@
     </div>
     <!-- aca estaba haciendo una prueba de jquery de un tutorial, pero no me funciono.-->
     <!-- usa la clase funcionesQuery, si queres borralo nomas-->
-    {!!Form::open()!!} 
+    {!!Form::open()!!}
 
         <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
-        
+
         <div class="form-group">
             {!!Form::label('genre','Nombre: ')!!}
             {!! Form::text('genre',null,['class'=>'form-control','id'=>'genre']) !!}

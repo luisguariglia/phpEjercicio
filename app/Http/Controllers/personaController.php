@@ -18,7 +18,7 @@ class personaController extends Controller
         $personas=User::all();
         return view('abm.persona.index',compact('personas'));
     }
-    
+
     public function create(){
         return view("abm.persona.create");
     }
@@ -45,17 +45,24 @@ class personaController extends Controller
         $persona->update();
         return Redirect::to('abm/persona');
     }
-    public function eliminar($id){
-        $personaEliminar=User::findOrFail($id);
-        $personaEliminar->delete();
-        return Redirect::to('abm/persona');
+    public function destroy($persona){
+        $persona = User::find($persona);
+        $exito = $persona->delete();
+        return $exito ? response()->json([
+            'success' => 'Record has been deleted successfully!',
+            'ok' => true
+        ])
+        : response()->json([
+            'error' => 'Hubo un error al eliminar el dato!',
+            'ok' => false
+        ]);
     }
     public function delete(Request $request){
         if($request->ajax()){
             return response()->json(["mensaje"=>$request]);
         }
-        //return view('abm/persona'); 
+        //return view('abm/persona');
     }
-    
+
 }
 ?>
